@@ -1,15 +1,20 @@
 "Overleaf"
 ==========
+This is how I write LaTeX documents. I like Overleaf, but I like maintaining
+control of my own source, documents, and ridiculous build processes (should
+I choose to add weird features like automatic generation of figures, tables,
+etc).
+
 You'll need:
-	- GNU Make
-	- TexLive (or something equivalent latex distribution supplying pdflatex)
-	- Bash (or any shell, really)
+- GNU Make
+- TexLive (or something equivalent latex distribution supplying pdflatex)
+- Bash (or any shell, really)
 
 Customize the Makefile with:
-	- The name of the pdf you want to generate
-	- The name of your latex source code file
-	- Any dependency files used in your latex document (images, tables)
-	- Any PDFLaTeX flags you need (e.g. --shell-escape)
+- The name of the pdf you want to generate
+- The name of your latex source code file
+- Any dependency files used in your latex document (images, tables)
+- Any PDFLaTeX flags you need (e.g. --shell-escape)
 
 In its own terminal, run the script in build.sh, either typing it manually
 inline (to see the output of pdflatex):
