@@ -17,20 +17,30 @@
 # this program.  If not, see <https://www.gnu.org/licenses/>.
 
 
-# change this to the name of the document you want to generate
+# change this to the full filename of the document you want to generate
+# i.e. mydocument.pdf
 DOC := mydocument.pdf 
 
-# change this to the name of your main latex source code (i.e. main.tex)
+# change this to the name of your main latex source code
+# i.e. main.tex
 SRC := main.tex
 
-# this optionally lets you specify dependencies of your document (i.e. included
-# figures, tables, etc
-#
-# here, we consider all png, jpg, and svg files in this directory as
-# dependencies so the document will update if any of them update
-INCLUDEDFILES := $(wildcard *.png *.jpg *.svg)
 
-# flags you use to call pdflatex with
+
+# INCLUDEDFILES variable optionally lets you specify dependencies of your
+# document (i.e. included figures, tables, etc.)
+
+# ex. consider all png, jpg, and svg files in this directory as
+# dependencies so the document will update if any of them update
+#INCLUDEDFILES := $(wildcard *.png *.jpg *.svg)
+
+# ex. somedata.csv is read into or used inside the document, as well
+#INCLUDEDFILES := somedata.csv
+
+
+
+# flags you use to call pdflatex with.. unlikely you'll need to change this
+# i.e. -halt-on-error makes pdflatex just exit when it encounters an error
 LATEXFLAGS := -halt-on-error
 
 DOCBASE := $(patsubst %.pdf,%,$(DOC))
@@ -44,8 +54,11 @@ $(DOC): $(SRC) $(INCLUDEDFILES)
 	pdflatex $(LATEXFLAGS) -jobname $(DOCBASE) $(SRC)
 	$(foreach EXT,$(TMPFILES),rm -f $(DOCBASE).$(EXT);)
 
+loop:
+	while :; do $(MAKE) < /dev/null; sleep 1; done
+
 clean:
 	rm -f $(DOC)
 	$(foreach EXT,$(TMPFILES),rm -f $(DOCBASE).$(EXT);)
 
-.PHONY: clean all
+.PHONY: clean all loop
